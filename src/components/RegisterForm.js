@@ -1,39 +1,40 @@
-import React, { useState, useEffect } from 'react';
-import { Flex, Box, FormControl, Input, Checkbox, Stack, Link,
-  Button, Heading, InputGroup, InputLeftElement
+import React, { useState } from 'react';
+import { Flex, Box, FormControl, Input, Stack,
+  Button, Heading, Text, InputGroup, InputLeftElement,
 } from '@chakra-ui/react';
-import { EmailIcon, LockIcon} from '@chakra-ui/icons'
+import { EmailIcon, LockIcon, Icon } from '@chakra-ui/icons'
+import { FaUser } from 'react-icons/fa'
 
-function LoginForm() {
+function RegisterForm() {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  useEffect(() => {
-    const saveLoginStorage = JSON.parse(localStorage.getItem('saveLogin'));
-    if (saveLoginStorage) {
-      const { email, password } = saveLoginStorage;
-      setEmail(email)
-      setPassword(password)
-    }
-  },[setEmail, setPassword]);
-
-  async function handleClick() {
-  }
+  const [validate, setValidate] = useState(false);
 
   function handleChange(e, name = '') {
     if (name === 'email') {
       setEmail(e.target.value)
-    } else {
+    } else if (name === 'password') {
       setPassword(e.target.value)
+    } else {
+      setName(e.target.value)
     }
   }
 
-  function saveLogin(e) {
-    if (e.target.checked) {
-      localStorage.setItem('saveLogin', JSON.stringify({ email, password }))
-    } else {
-      localStorage.removeItem('saveLogin');
+  function validateRegister() {
+    if (!name || name.length < 6) {
+      return true;
+    } else if (!password || password.length < 8) {
+      return true;
+    } else if (!email || !email.match(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/)) {
+      return true;
     }
+  }
+
+  function onClick() {
+    const validate = validateRegister()
+
+    if (validate) return setValidate(true);
   }
 
   return (
@@ -45,19 +46,35 @@ function LoginForm() {
       bgSize="100%"
       bgPosition="center"
       bgRepeat="no-repeat"
-      opacity="1"
+      opacity="1"  
     >
       <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6} width="70vh">
         <Stack align={'center'}>
-          <Heading fontSize={'4xl'} color="white" fontWeight="bold">Entre na sua conta</Heading>
+          <Heading fontSize={'4xl'} color="white">Registre-se Gratis</Heading>
         </Stack>
         <Box
           rounded={'lg'}
           boxShadow={'lg'}
-          p={8}
           bgColor="white"
-        >
+          p={8}>
           <Stack spacing={10}>
+            <FormControl id="text">
+                <InputGroup>
+                  <InputLeftElement
+                    pointerEvents="none"
+                    children={<Icon as={FaUser} color="black" />}
+                  />
+                  <Input
+                    variant="flushed"
+                    type="text"
+                    placeholder="Nome"
+                    borderColor="black"
+                    _placeholder={{ color: 'black' }}
+                    focusBorderColor="black"
+                    onChange={ (e) => handleChange(e) }
+                  />
+                </InputGroup>
+            </FormControl>
             <FormControl id="email">
               <InputGroup>
                 <InputLeftElement
@@ -68,10 +85,9 @@ function LoginForm() {
                   variant="flushed"
                   type="email"
                   placeholder="Email"
+                  borderColor="black"
                   _placeholder={{ color: 'black' }}
                   focusBorderColor="black"
-                  borderColor="black"
-                  value={ email }
                   onChange={ (e) => handleChange(e, 'email') }
                 />
               </InputGroup>
@@ -86,29 +102,15 @@ function LoginForm() {
                   variant="flushed"
                   type="password"
                   placeholder="Senha"
-                  color="black"
+                  borderColor="black"
                   _placeholder={{ color: 'black' }}
                   focusBorderColor="black"
-                  borderColor="black"
-                  value={ password }
-                  onChange={ (e) => handleChange(e) }
+                  onChange={ (e) => handleChange(e, 'password') }
                 />
               </InputGroup>
             </FormControl>
+            { validate ? <Text>Campos Inválidos</Text> : <span /> }
             <Stack spacing={10}>
-              <Stack
-                direction={{ base: 'column', sm: 'row' }}
-                align={'start'}
-                justify={'space-between'}>
-                <Checkbox
-                  color="black"
-                  borderColor="black"
-                  colorScheme="red"
-                  onChange={ (e) => saveLogin(e) }
-                >
-                  Lembre me
-                </Checkbox>
-              </Stack>
               <Button
                 bg={'red.600'}
                 color={'white'}
@@ -116,18 +118,10 @@ function LoginForm() {
                   bg: 'red.400',
                 }}
                 boxShadow="none"
-                onClick={ handleClick }  
+                onClick={ onClick }
               >
-                Login
+                Registre-se
               </Button>
-              <Link
-                textAlign="center"
-                color="black"
-                fontSize="sm"
-                href="/register"
-              >
-                Ainda não tem cadastro? clique aqui!
-              </Link>
             </Stack>
           </Stack>
         </Box>
@@ -136,4 +130,4 @@ function LoginForm() {
   )
 }
 
-export default LoginForm;
+export default RegisterForm;
