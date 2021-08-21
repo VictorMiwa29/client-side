@@ -1,25 +1,19 @@
 import React from 'react';
-import { Box, Image, Text } from "@chakra-ui/react"
+import { Box, Image } from "@chakra-ui/react"
 
-function HomeListCard({name, description, image}) {
+function HomeListCard({ card }) {
+  const { name, thumbnail, title = '' } = card;
   return (
-    <Box maxW="sm" borderWidth="1px" borderRadius="lg" overflow="hidden" margin="20px">
-      <Image src={`${image.path}/standard_fantastic.${image.extension}`} alt={name} />
-      <Box>
-        <Box
-          mt="1"
-          fontWeight="semibold"
-          as="h4"
-          lineHeight="tight"
-          isTruncated
-          color="white"
-          textAlign="center"
-        >
-          { name }
-        </Box>
-        <Box color="white">
-          <Text>{ description }</Text>
-        </Box>
+    <Box maxW="250px" borderWidth="1px" borderRadius="lg" overflow="hidden" margin="20px">
+      <Image src={`${thumbnail.path}/standard_fantastic.${thumbnail.extension}`} alt={name} />
+      <Box
+        mt="1"
+        fontWeight="semibold"
+        color="white"
+        textAlign="center"
+        alignContent="center"
+      >
+        { title ? title : name }
       </Box>
     </Box>
   );
