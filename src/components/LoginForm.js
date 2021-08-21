@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Flex, Box, FormControl, Input, Checkbox, Stack, Link,
   Button, Heading, InputGroup, InputLeftElement
 } from '@chakra-ui/react';
-import { EmailIcon, LockIcon} from '@chakra-ui/icons'
+import { EmailIcon, LockIcon} from '@chakra-ui/icons';
 
 function LoginForm() {
   const [email, setEmail] = useState('');

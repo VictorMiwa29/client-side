@@ -1,11 +1,11 @@
 import React from 'react';
-import HomeListCard from '../components/HomeListCard';
+import HomePage from '../components/HomePage';
 import { ChakraProvider } from '@chakra-ui/react';
 
 function Login() {
   return (
     <ChakraProvider>
-      <HomeListCard />
+      <HomePage />
     </ChakraProvider>
   )
 }
