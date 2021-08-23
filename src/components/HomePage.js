@@ -1,47 +1,53 @@
 import React, { useEffect, useState } from 'react';
+import Pagination from './Pagination';
 import { Flex, Input, Wrap, InputLeftElement, InputGroup, Button,
  WrapItem, Box, Spinner } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
 import HomeListCard from './HomeListCard';
 const axios = require('axios');
 
+
 function HomePage() {
   const [api, setApi] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchBar, setSeachBar] = useState('');
   const [options, setOptions] = useState('characters');
+  const [totalApi, setTotalApi] = useState(0);
+  const [offset, setOffset] = useState(0);
+  const [buttonSeach, setButtonSearch] = useState(false);
 
-  async function fecthApi(options = 'characters') {
-    const { data: { data: { results } } } = await axios.get(`https://gateway.marvel.com/v1/public/${options}?limit=20&ts=1&apikey=eed2a194a8215263a1c9ce65055b76cc&hash=d35d5108f78529a8bd758e77a9ccaba2`)
-
-    setLoading(false);
-    return setApi(results);
-  }
-
-  async function onChange(e) {
+  function onChange(e) {
     setOptions(e.target.name);
+    setButtonSearch(false);
+    setOffset(0);
     setLoading(true);
-    await fecthApi(e.target.name)
   }
 
   function handleChange(e) {
     setSeachBar(e.target.value);
   }
 
-  async function searchButton() {
-    const nameSearch = options === 'characters' ? 'name' : 'title';
-    setLoading(true);
-    setSeachBar('');
-
-    const { data: { data: { results } } } = await axios.get(`https://gateway.marvel.com/v1/public/${options}?${nameSearch}StartsWith=${searchBar}&limit=20&ts=1&apikey=eed2a194a8215263a1c9ce65055b76cc&hash=d35d5108f78529a8bd758e77a9ccaba2`);
-
-    setLoading(false);
-    return setApi(results);
-  }
-
   useEffect(() => {
+    async function fecthApi() {
+      if (buttonSeach) {
+        setLoading(true);
+        const nameSearch = options === 'characters' ? 'name' : 'title';
+        const { data: { data } } = await axios.get(`https://gateway.marvel.com/v1/public/${options}?${nameSearch}StartsWith=${searchBar}&limit=20&offset=${offset}&ts=1&apikey=eed2a194a8215263a1c9ce65055b76cc&hash=d35d5108f78529a8bd758e77a9ccaba2`);
+
+        setLoading(false);
+        setTotalApi(data.total)
+        return setApi(data.results);
+      }
+
+      const { data: { data } } = await axios.get(`https://gateway.marvel.com/v1/public/${options}?limit=20&offset=${offset}&ts=1&apikey=eed2a194a8215263a1c9ce65055b76cc&hash=d35d5108f78529a8bd758e77a9ccaba2`)
+  
+      setLoading(false);
+      setTotalApi(data.total)
+      return setApi(data.results);
+    }
+
     fecthApi()
-  }, []);
+  }, [offset, options, buttonSeach]);
 
   return (
     <Flex
@@ -73,7 +79,7 @@ function HomePage() {
               </InputGroup>
             </WrapItem>
             <WrapItem>
-              <Button colorScheme="red" onClick={ (e) => searchButton(e) }>Pesquisar</Button>
+              <Button colorScheme="red" onClick={ () => setButtonSearch(true) }>Pesquisar</Button>
             </WrapItem>
           </Wrap>
         </Box>
@@ -117,7 +123,11 @@ function HomePage() {
           return <HomeListCard card={card} key={index} />
         })}
       </Flex>
-    </Flex>
+      { totalApi !== 0 && !loading ?
+        <Pagination limit={20} total={totalApi} offset={offset} setOffset={setOffset} setLoading={setLoading} />
+        : <span>''</span>
+      }
+      </Flex>
   )
 }
 
