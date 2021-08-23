@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router';
-import { Flex, Image, Text, UnorderedList, ListItem } from '@chakra-ui/react';
+import { Flex, Image, Text, UnorderedList, ListItem, Spinner } from '@chakra-ui/react';
 const axios = require('axios');
 
 function DetailsPage() {
@@ -23,12 +23,21 @@ function DetailsPage() {
     history.push(`/character/${idCharacter}`);
   }
 
-  if (Object.keys(api).length === 0) return (<h1>Carregando...</h1>)
+  if (Object.keys(api).length === 0) return (
+    <Flex
+      justify="center"
+      alignItems="center"
+      height="100vh"
+      width="100vw"
+      bg="black"
+    >
+      <Spinner size="xl" color="red.600"/>
+    </Flex>)
 
   return (
     <Flex p="10" bg="black" minH={'100vh'}>
       <Image src={`${api.thumbnail.path}/portrait_incredible.${api.thumbnail.extension}`}  height="sm"/>
-      <Flex flexDirection="column" border="1px" height="sm" borderColor="white">
+      <Flex flexDirection="column" height="sm">
         <Text marginLeft="10" color="white">Title: {api.title}</Text>
         <Text marginLeft="10" color="white" as="div">
           Characters:
@@ -42,22 +51,6 @@ function DetailsPage() {
         </Text>
       </Flex>
     </Flex>
-    // <Flex>
-    //   <Image src={`${api.thumbnail.path}.${api.thumbnail.extension}`}/>
-    //   <Flex flexDirection="column">
-    //     <Text>Title: {api.title}</Text>
-    //     <Text as="div">
-    //       Characters:
-    //       <UnorderedList>
-    //         { api.characters.items.map((comic, index) => (
-    //           <ListItem key={index}>
-    //             { comic.name }
-    //           </ListItem>
-    //         )) }
-    //       </UnorderedList>
-    //     </Text>
-    //   </Flex>
-    // </Flex>
   )
 }
 

@@ -7,7 +7,11 @@ function HomeListCard({ card }) {
   const history = useHistory();
 
   function onClick(id) {
-    history.push(`/character/${id}`);
+    if (name) {
+      return history.push(`/character/${id}`);
+    }
+
+    return history.push(`/comic/${id}`); 
   }
 
   return (
