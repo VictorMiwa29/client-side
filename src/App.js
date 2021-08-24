@@ -5,6 +5,7 @@ import Register from './pages/Register';
 import Home from './pages/Home';
 import DetailsCharacter from './pages/DetailCharacter';
 import DetailComic from './pages/DetailComic';
+import EditAccount from './pages/EditAccount';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Route exact path='/' component={Home} />
       <Route path='/character/:id' component={DetailsCharacter}/>
       <Route path='/comic/:id' component={DetailComic}/>
+      <Route path="/edit" component={EditAccount} />
     </Switch>
   );
 }

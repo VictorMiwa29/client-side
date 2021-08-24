@@ -1,15 +1,15 @@
 import React from 'react';
-import HomePage from '../components/HomePage';
+import EditForm from '../components/EditForm';
 import HeaderLayout from '../components/HeaderLayout';
 import { ChakraProvider } from '@chakra-ui/react';
 
-function Login() {
+function EditAccount() {
   return (
     <ChakraProvider>
       <HeaderLayout />
-      <HomePage />
+      <EditForm />
     </ChakraProvider>
   )
 }
 
-export default Login;
+export default EditAccount;
