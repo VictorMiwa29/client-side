@@ -2,14 +2,19 @@ import React, { useState } from 'react';
 import { Flex, Box, FormControl, Input, Stack,
   Button, Heading, Text, InputGroup, InputLeftElement,
 } from '@chakra-ui/react';
+import { useHistory } from 'react-router';
 import { EmailIcon, LockIcon, Icon } from '@chakra-ui/icons'
 import { FaUser } from 'react-icons/fa'
+const axios = require('axios');
+const crypto = require('crypto');
 
 function RegisterForm() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [validate, setValidate] = useState(false);
+
+  const history = useHistory();
 
   function handleChange(e, name = '') {
     if (name === 'email') {
@@ -22,7 +27,7 @@ function RegisterForm() {
   }
 
   function validateRegister() {
-    if (!name || name.length < 6) {
+    if (!name) {
       return true;
     } else if (!password || password.length < 8) {
       return true;
@@ -31,10 +36,20 @@ function RegisterForm() {
     }
   }
 
-  function onClick() {
+  async function onClick() {
     const validate = validateRegister()
 
     if (validate) return setValidate(true);
+
+    const { status } = await axios.post('http://localhost:3001/register', {
+      firstName: name,
+      email: email,
+      password: crypto.createHash('md5').update(password).digest('hex'),
+    });
+
+    if (status === 201) return history.push('/login'); 
+
+    return setValidate(true);
   }
 
   return (

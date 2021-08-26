@@ -29,6 +29,7 @@ function HomePage() {
 
   useEffect(() => {
     async function fecthApi() {
+      console.log(options);
       if (buttonSeach) {
         setLoading(true);
         const nameSearch = options === 'characters' ? 'name' : 'title';
@@ -37,6 +38,14 @@ function HomePage() {
         setLoading(false);
         setTotalApi(data.total)
         return setApi(data.results);
+      }
+
+      if (options === 'favorites') {
+        setLoading(true);
+        const user = JSON.parse(localStorage.getItem('user'));
+        const { data: { favorites } } = await axios.post(`http://localhost:3001/favorites`, { id: user.id })
+        setLoading(false)
+        return setApi(favorites);
       }
 
       const { data: { data } } = await axios.get(`https://gateway.marvel.com/v1/public/${options}?limit=20&offset=${offset}&ts=1&apikey=eed2a194a8215263a1c9ce65055b76cc&hash=d35d5108f78529a8bd758e77a9ccaba2`)
@@ -123,7 +132,7 @@ function HomePage() {
           return <HomeListCard card={card} key={index} />
         })}
       </Flex>
-      { totalApi !== 0 && !loading ?
+      { totalApi !== 0 && !loading && options !== 'favorites' ?
         <Pagination limit={20} total={totalApi} offset={offset} setOffset={setOffset} setLoading={setLoading} />
         : <span>''</span>
       }

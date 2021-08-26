@@ -1,9 +1,23 @@
 import { EditIcon, HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { Flex, Menu, MenuButton, MenuItem, MenuList, IconButton } from '@chakra-ui/react';
 import { AiOutlineHome } from 'react-icons/ai';
+import { useHistory } from 'react-router';
 import React from 'react';
 
 function HeaderLayout() {
+  const history = useHistory();
+
+  function redirect(local) {
+    if (local === 'home') return history.push('/');
+
+    return history.push('/edit');
+  }
+
+  function exitButton() {
+    localStorage.clear();
+    return history.push('/login');
+  }
+
   return (
     <Flex justify="space-between" bg="black">
       <Menu>
@@ -16,10 +30,10 @@ function HeaderLayout() {
           _hover="none"
         />
         <MenuList>
-          <MenuItem icon={<AiOutlineHome />}>
+          <MenuItem icon={<AiOutlineHome />} onClick={ () => redirect('home') }>
             Home
           </MenuItem>
-          <MenuItem icon={<EditIcon />}>
+          <MenuItem icon={<EditIcon />} onClick={ () => redirect() }>
             Edit Account
           </MenuItem>
         </MenuList>
@@ -29,6 +43,7 @@ function HeaderLayout() {
         icon={<CloseIcon color="white" />}
         bg="black"
         _hover="none"
+        onClick={ exitButton }
       />
     </Flex>
   )

@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { Flex, Box, FormControl, Input, Checkbox, Stack, Link,
-  Button, Heading, InputGroup, InputLeftElement
+  Button, Heading, InputGroup, InputLeftElement, Text
 } from '@chakra-ui/react';
+import { useHistory } from 'react-router';
 import { EmailIcon, LockIcon} from '@chakra-ui/icons';
+const axios = require('axios');
+const crypto = require('crypto');
 
 function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [validate, setValidate] = useState(false);
+
+  const history = useHistory();
 
   useEffect(() => {
     const saveLoginStorage = JSON.parse(localStorage.getItem('saveLogin'));
@@ -18,6 +24,17 @@ function LoginForm() {
   },[setEmail, setPassword]);
 
   async function handleClick() {
+    try {
+      const { data } = await axios.post('http://localhost:3001/login', {
+        email,
+        password: crypto.createHash('md5').update(password).digest('hex'),
+      });
+
+      localStorage.setItem('user', JSON.stringify(data))
+      return history.push('/');
+    } catch (error) {
+      return setValidate(true);
+    }
   }
 
   function handleChange(e, name = '') {
@@ -109,6 +126,7 @@ function LoginForm() {
                   Lembre me
                 </Checkbox>
               </Stack>
+              { validate ? <Text>Campos Inválidos</Text> : <span /> }
               <Button
                 bg={'red.600'}
                 color={'white'}
