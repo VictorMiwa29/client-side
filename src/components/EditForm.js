@@ -61,7 +61,7 @@ function EditForm() {
         oldEmail: oldUser.email,
       });
 
-      localStorage.setItem('user', JSON.stringify({ name: firstName, email, token: oldUser.token }))
+      localStorage.setItem('user', JSON.stringify({ id: oldUser.id, name: firstName, email, token: oldUser.token }))
 
       alert('Atualizado com sucesso!!');
     } catch (error) {

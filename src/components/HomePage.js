@@ -15,10 +15,12 @@ function HomePage() {
   const [totalApi, setTotalApi] = useState(0);
   const [offset, setOffset] = useState(0);
   const [buttonSeach, setButtonSearch] = useState(false);
+  const [searchButton, setSearchButton] = useState(false);
 
   function onChange(e) {
     setOptions(e.target.name);
     setButtonSearch(false);
+    setSearchButton(false);
     setOffset(0);
     setLoading(true);
   }
@@ -29,7 +31,6 @@ function HomePage() {
 
   useEffect(() => {
     async function fecthApi() {
-      console.log(options);
       if (buttonSeach) {
         setLoading(true);
         const nameSearch = options === 'characters' ? 'name' : 'title';
@@ -45,6 +46,7 @@ function HomePage() {
         const user = JSON.parse(localStorage.getItem('user'));
         const { data: { favorites } } = await axios.post(`http://localhost:3001/favorites`, { id: user.id })
         setLoading(false)
+        setSearchButton(true);
         return setApi(favorites);
       }
 
@@ -88,7 +90,7 @@ function HomePage() {
               </InputGroup>
             </WrapItem>
             <WrapItem>
-              <Button colorScheme="red" onClick={ () => setButtonSearch(true) }>Pesquisar</Button>
+              <Button colorScheme="red" disabled={searchButton} onClick={ () => setButtonSearch(true) }>Pesquisar</Button>
             </WrapItem>
           </Wrap>
         </Box>
