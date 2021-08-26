@@ -11,7 +11,7 @@ Para execução do projeto, será necessario executar os seguintes passos.
 # Desenvolvimento
 
 Será necessario clonar o repositório.
-  git clone https://github.com/VictorMiwa29/client-side.git
+ - git clone https://github.com/VictorMiwa29/client-side.git
   
 Executar o Back-End
   https://github.com/VictorMiwa29/server-side
