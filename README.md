@@ -6,19 +6,20 @@ Esse projeto, coloco meus conhecimentos adquiridos na Trybe, para criar uma apli
 
 Será necessario clonar o repositório.
  - git clone https://github.com/VictorMiwa29/client-side.git
- - npm install || npm i.
-  
+Entrar na pasta clonada
+ - cd client-side/
+Executar no terminal
+ - npm install.
 Executar o Back-End
   https://github.com/VictorMiwa29/server-side
   
 # Executando Aplicação
-  Front-End
-  - npm start
+ - npm start
 
 # Tecnologias
-  - React
-  - Axios
-  - Chakra UI
-  - Context API
+ - React
+ - Axios
+ - Chakra UI
+ - Context API
 
 
