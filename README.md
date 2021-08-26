@@ -14,7 +14,7 @@ Será necessario clonar o repositório.
   git clone link.
   
 Executar o Back-End
-  link repo
+  https://github.com/VictorMiwa29/server-side
   
 # Executando Aplicação
   Front-End
