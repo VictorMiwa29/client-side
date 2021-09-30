@@ -134,6 +134,7 @@ function EditForm() {
             <Input
               placeholder="Password"
               width="500px"
+              type="password"
               borderColor="black"
               _placeholder={{color: 'black'}}
               focusBorderColor="black"

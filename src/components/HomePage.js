@@ -6,7 +6,6 @@ import { SearchIcon } from '@chakra-ui/icons';
 import HomeListCard from './HomeListCard';
 const axios = require('axios');
 
-
 function HomePage() {
   const [api, setApi] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -44,7 +43,7 @@ function HomePage() {
       if (options === 'favorites') {
         setLoading(true);
         const user = JSON.parse(localStorage.getItem('user'));
-        const { data: { favorites } } = await axios.post(`http://localhost:3001/favorites`, { id: user.id })
+        const { data: { favorites } } = await axios.post('http://localhost:3001/favorites', { id: user.id })
         setLoading(false)
         setSearchButton(true);
         return setApi(favorites);
@@ -62,7 +61,7 @@ function HomePage() {
 
   return (
     <Flex
-      minH={'100vh'}
+      width="full"
       justify={'center'}
       bg="black"
       flexWrap="wrap"
@@ -129,7 +128,7 @@ function HomePage() {
           </Wrap>
         </Box>
       </Box>
-      <Flex flexWrap="wrap" justify="center" width="100vw">
+      <Flex flexWrap="wrap" justify="center" width="full" height="full">
         { loading ? <Spinner size="xl" color="red.600"/> : api.map((card, index) => {
           return <HomeListCard card={card} key={index} />
         })}

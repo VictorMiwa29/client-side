@@ -4,15 +4,16 @@ import { useHistory } from 'react-router';
 const Context = createContext();
 
 function GlobalProvider({ children }) {
-    const history = useHistory();
+  const history = useHistory();
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
+    const { pathname } = history.location;
 
-    if (!user) {
+    if (!user && pathname !== '/register') {
       return history.push('/login');
     } 
-  }, [])
+  }, [history])
 
   return (
     <Context.Provider>
