@@ -63,7 +63,7 @@ function HomePage() {
     <Flex
       width="full"
       justify={'center'}
-      bg="black"
+      bg="white"
       flexWrap="wrap"
     >
       <Box>
@@ -73,15 +73,15 @@ function HomePage() {
               <InputGroup>
                 <InputLeftElement
                   pointerEvents="none"
-                  color="white"
-                  children={<SearchIcon color="gray.300" />}
+                  color="black"
+                  children={<SearchIcon color="black" />}
                 />
                 <Input
                   type="text"
                   placeholder="Pesquise"
                   borderRadius="50px"
-                  borderColor="white"
-                  color="white"
+                  borderColor="black"
+                  color="black"
                   value={ searchBar }
                   onChange={ (e) => handleChange(e) }
                   width="80vh"
@@ -99,7 +99,7 @@ function HomePage() {
               <Button
                 variant="link"
                 name="characters"
-                color="white"
+                color="black"
                 onClick={ (e) => onChange(e) }
               >
                 Characters
@@ -109,7 +109,7 @@ function HomePage() {
               <Button
                 variant="link"
                 name="comics"
-                color="white"
+                color="black"
                 onClick={ (e) => onChange(e) }
               >
                 Comics
@@ -119,7 +119,7 @@ function HomePage() {
               <Button
                 variant="link"
                 name="favorites"
-                color="white"
+                color="black"
                 onClick={ (e) => onChange(e) }
               >
                 Favorites
@@ -128,14 +128,21 @@ function HomePage() {
           </Wrap>
         </Box>
       </Box>
-      <Flex flexWrap="wrap" justify="center" width="full" height="full">
-        { loading ? <Spinner size="xl" color="red.600"/> : api.map((card, index) => {
+      <Flex flexWrap="wrap" justify="center" width="full">
+        { loading ? <Flex
+          width="full"
+          height="50vh" 
+          justify="center"
+          align="center"
+        >
+          <Spinner size="xl" color="red.600"/>
+        </Flex> : api.map((card, index) => {
           return <HomeListCard card={card} key={index} />
         })}
       </Flex>
       { totalApi !== 0 && !loading && options !== 'favorites' ?
         <Pagination limit={20} total={totalApi} offset={offset} setOffset={setOffset} setLoading={setLoading} />
-        : <span>''</span>
+        : <span></span>
       }
       </Flex>
   )

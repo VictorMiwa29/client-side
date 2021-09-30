@@ -6,7 +6,7 @@ const axios = require('axios');
 
 function DetailsPage() {
   const [api, setApi] = useState({});
-  const [fav, setFav] = useState('white');
+  const [fav, setFav] = useState('black');
   const { id } = useParams();
   const history = useHistory();
 
@@ -43,7 +43,7 @@ function DetailsPage() {
         image: `${api.thumbnail.path}/standard_fantastic.${api.thumbnail.extension}`
       })
     } else {
-      icon.style.color = 'white';
+      icon.style.color = 'black';
       await axios.post('http://localhost:3001/character/disfavor', {
         idUser: id,
         idCharacter: api.id,
@@ -57,22 +57,22 @@ function DetailsPage() {
       alignItems="center"
       width="100vw"
       height="100vh"
-      bg="black"
+      bg="white"
     >
       <Spinner size="xl" color="red.600"/>
     </Flex>)
 
   return (
-    <Flex p="10" bg="black" minH={'100vh'}>
+    <Flex p="10" bg="white" minH={'100vh'}>
       <Image src={`${api.thumbnail.path}/portrait_incredible.${api.thumbnail.extension}`}  height="sm"/>
       <Flex flexDirection="column" height="sm">
-        <Text marginLeft="10" color="white">Name: {api.name}</Text>
-        <Text marginLeft="10" color="white">Description: {api.description}</Text>
-        <Text marginLeft="10" color="white" as="div">
+        <Text marginLeft="10" color="black">Name: {api.name}</Text>
+        <Text marginLeft="10" color="black">Description: {api.description}</Text>
+        <Text marginLeft="10" color="black" as="div">
           Comics:
-          <UnorderedList listStyleType="none" display="flex" flexWrap="wrap" color="white">
+          <UnorderedList listStyleType="none" display="flex" flexWrap="wrap" color="black">
             { api.comics.items.map((comic, index) => (
-              <ListItem key={index} margin="1" _hover={{ cursor: "pointer", color: "blue" }} onClick={ () => redirectComicDetail(comic.resourceURI) }>
+              <ListItem key={index} margin="1" _hover={{ cursor: "pointer", color: "red" }} onClick={ () => redirectComicDetail(comic.resourceURI) }>
                 { comic.name } |
               </ListItem>
             )) }

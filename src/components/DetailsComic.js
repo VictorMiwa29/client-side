@@ -7,7 +7,7 @@ const axios = require('axios');
 function DetailsPage() {
   const [api, setApi] = useState({});
   const { id } = useParams();
-  const [fav, setFav] = useState('white');
+  const [fav, setFav] = useState('black');
   const history = useHistory();
 
   useEffect(() => {
@@ -43,7 +43,7 @@ function DetailsPage() {
         image: `${api.thumbnail.path}/standard_fantastic.${api.thumbnail.extension}`
       })
     } else {
-      icon.style.color = 'white';
+      icon.style.color = 'black';
       await axios.post('http://localhost:3001/comic/disfavor', {
         idUser: id,
         idComic: api.id,
@@ -57,21 +57,21 @@ function DetailsPage() {
       alignItems="center"
       height="100vh"
       width="100vw"
-      bg="black"
+      bg="white"
     >
       <Spinner size="xl" color="red.600"/>
     </Flex>)
 
   return (
-    <Flex p="10" bg="black" minH={'100vh'}>
+    <Flex p="10" bg="white" minH={'100vh'}>
       <Image src={`${api.thumbnail.path}/portrait_incredible.${api.thumbnail.extension}`}  height="sm"/>
       <Flex flexDirection="column" height="sm">
-        <Text marginLeft="10" color="white">Title: {api.title}</Text>
-        <Text marginLeft="10" color="white" as="div">
+        <Text marginLeft="10" color="black">Title: {api.title}</Text>
+        <Text marginLeft="10" color="black" as="div">
           Characters:
-          <UnorderedList listStyleType="none" display="flex" flexWrap="wrap" color="white">
+          <UnorderedList listStyleType="none" display="flex" flexWrap="wrap" color="black">
             { api.characters.items.map((character, index) => (
-              <ListItem key={index} margin="1" _hover={{ cursor: "pointer", color: "blue" }} onClick={ () => redirectcharacterDetail(character.resourceURI) }>
+              <ListItem key={index} margin="1" _hover={{ cursor: "pointer", color: "red" }} onClick={ () => redirectcharacterDetail(character.resourceURI) }>
                 { character.name } |
               </ListItem>
             )) }

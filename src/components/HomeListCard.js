@@ -15,7 +15,16 @@ function HomeListCard({ card }) {
   }
 
   return (
-    <Box maxW="250px" borderWidth="1px" borderRadius="lg" overflow="hidden" margin="20px" _hover={{ cursor: "pointer" }} onClick={(e) => onClick(id)}>
+    <Box
+      maxW="250px"
+      borderColor="black"
+      borderWidth="1px"
+      borderRadius="lg"
+      overflow="hidden"
+      margin="20px"
+      _hover={{ cursor: "pointer" }}
+      onClick={(e) => onClick(id)}
+    >
       <Image
         src={ image ? image :
           `${thumbnail.path}/standard_fantastic.${thumbnail.extension}`
@@ -25,7 +34,7 @@ function HomeListCard({ card }) {
       <Box
         mt="1"
         fontWeight="semibold"
-        color="white"
+        color="black"
         textAlign="center"
         alignContent="center"
       >

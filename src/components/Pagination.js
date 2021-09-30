@@ -22,7 +22,7 @@ function Pagination({ limit, total, offset, setOffset, setLoading }) {
           <ListItem key={index} listStyleType="none">
             <Button
               onClick={() => onClick(page)}
-              color="white"
+              color="black"
               variant="link"
             >
               {page}
