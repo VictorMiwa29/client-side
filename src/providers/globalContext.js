@@ -16,7 +16,7 @@ function GlobalProvider({ children }) {
   }, [history])
 
   return (
-    <Context.Provider>
+    <Context.Provider value>
       { children }
     </Context.Provider>
   )

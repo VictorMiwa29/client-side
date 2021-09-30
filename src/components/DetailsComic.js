@@ -71,14 +71,14 @@ function DetailsPage() {
           Characters:
           <UnorderedList listStyleType="none" display="flex" flexWrap="wrap" color="black">
             { api.characters.items.map((character, index) => (
-              <ListItem key={index} margin="1" _hover={{ cursor: "pointer", color: "red" }} onClick={ () => redirectcharacterDetail(character.resourceURI) }>
+              <ListItem key={index} margin="1" onClick={ () => redirectcharacterDetail(character.resourceURI) }>
                 { character.name } |
               </ListItem>
             )) }
           </UnorderedList>
         </Text>
       </Flex>
-      <StarIcon style={{ color: fav }} id="favorite" marginLeft="10px" _hover={{ cursor: "pointer" }} onClick={ (e) => favorite(e) } />
+      <StarIcon style={{ color: fav }} id="favorite" marginLeft="10px" onClick={ (e) => favorite(e) } />
     </Flex>
   )
 }

@@ -27,7 +27,6 @@ function HeaderLayout() {
           icon={<HamburgerIcon color="white" />}
           variant="outline"
           borderColor="black"
-          _hover="none"
         />
         <MenuList>
           <MenuItem icon={<AiOutlineHome />} onClick={ () => redirect('home') }>
@@ -42,7 +41,6 @@ function HeaderLayout() {
         aria-label="Exit Account"
         icon={<CloseIcon color="white" />}
         bg="black"
-        _hover="none"
         onClick={ exitButton }
       />
     </Flex>

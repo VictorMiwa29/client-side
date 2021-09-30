@@ -72,14 +72,14 @@ function DetailsPage() {
           Comics:
           <UnorderedList listStyleType="none" display="flex" flexWrap="wrap" color="black">
             { api.comics.items.map((comic, index) => (
-              <ListItem key={index} margin="1" _hover={{ cursor: "pointer", color: "red" }} onClick={ () => redirectComicDetail(comic.resourceURI) }>
+              <ListItem key={index} margin="1" onClick={ () => redirectComicDetail(comic.resourceURI) }>
                 { comic.name } |
               </ListItem>
             )) }
           </UnorderedList>
         </Text>
       </Flex>
-      <StarIcon style={{ color: fav }} id="favorite" marginLeft="10px" _hover={{ cursor: "pointer" }} onClick={ (e) => favorite(e) } />
+      <StarIcon style={{ color: fav }} id="favorite" marginLeft="10px" onClick={ (e) => favorite(e) } />
     </Flex>
   )
 }

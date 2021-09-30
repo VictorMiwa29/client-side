@@ -131,7 +131,7 @@ function LoginForm() {
                 bg={'red.600'}
                 color={'white'}
                 _hover={{
-                  bg: 'red.400',
+                 bg: 'red.400',
                 }}
                 boxShadow="none"
                 onClick={ handleClick }  
